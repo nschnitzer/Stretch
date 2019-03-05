@@ -45,7 +45,7 @@ public class Stretch
 	//Adds the A piece (3 straight)
 	//x is the end of the last piece
 	//Left To Right
-	public boolean addA(int x)
+	public boolean addA(int x) throws Exception
 	{
 		x = x-1;
 		//Check for bounds errors
@@ -60,7 +60,6 @@ public class Stretch
 		//Check for invalid pieces in the way
 		for (int i = c ; i < c+2; i++)
 		{
-			System.out.println(1);
 			if (validMatrix[r][i] == false)
 			{
 				return false;
@@ -76,11 +75,9 @@ public class Stretch
 			matrix[x/cols][i] = new Shape("A", true, true);
 			matrix[x/cols][i+1] = new Shape("A", false, false);
 			matrix[x/cols][i+2] = new Shape("A", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 		matrix[x/cols][i] = new Shape("A", true, true);
-		System.out.println(i/cols+1);
 		matrix[x/cols][i+1] = new Shape("A", false, false);
 		matrix[x/cols][i+2] = new Shape("A", true, false);
 		cursor = x + 4;
@@ -92,7 +89,7 @@ public class Stretch
 
 	//Adds a B piece to the matrix (3 down/up)
 	//Left To Right
-	public boolean addB(int x)
+	public boolean addB(int x) throws Exception
 	{
 		x = x-1;
 		int r = x/cols;
@@ -106,7 +103,6 @@ public class Stretch
 		//Check for blocked pieces
 		for (int i = x/cols; i < x/cols+3; i++)
 		{
-			printMatrix();
 			if (validMatrix[i][x%cols] == false)
 			{
 				return false;
@@ -121,11 +117,9 @@ public class Stretch
 				matrix[x/cols][x%cols] = new Shape("B", true, true);
 				matrix[x/cols+1][x%cols] = new Shape("B", false, false);
 				matrix[x/cols+2][x%cols] = new Shape("B", true, false);
-				printMatrix();
 				System.exit(0);
 			}
 			path.add('B');
-			printMatrix();
 			matrix[x/cols][x%cols] = new Shape("B", true, true);
 			matrix[x/cols+1][x%cols] = new Shape("B", false, false);
 			matrix[x/cols+2][x%cols] = new Shape("B", true, false);
@@ -140,7 +134,6 @@ public class Stretch
 		{
 			if (validMatrix[k][x%cols] == false)
 			{
-				System.out.println("TEST");
 				return false;
 			}
 		}
@@ -151,7 +144,6 @@ public class Stretch
 			matrix[x/cols][x%cols] = new Shape("B", true, true);
 			matrix[x/cols-1][x%cols] = new Shape("B", false, false);
 			matrix[x/cols-2][x%cols] = new Shape("B", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -167,7 +159,7 @@ public class Stretch
 
 	//Adds C piece (3 piece L)
 	//Left To Right
-	public boolean addC(int x)
+	public boolean addC(int x) throws Exception
 	{
 		x = x-1;
 		int r = x/cols;
@@ -203,7 +195,6 @@ public class Stretch
 			matrix[x/cols][x%cols] = new Shape("C", true, true);
 			matrix[x/cols+1][x%cols] = new Shape("C", false, false);
 			matrix[x/cols+1][x%cols+1] = new Shape("C", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -217,7 +208,7 @@ public class Stretch
 
 	//Adds a D piece - 1 right 2 down
 	//Left To Right
-	public boolean addD(int x) 
+	public boolean addD(int x) throws Exception
 	{
 		x = x - 1;
 		int r = x / cols;
@@ -275,7 +266,6 @@ public class Stretch
 			matrix[r][c+1] = new Shape("D",false, false);
 			matrix[r+1][c+1] = new Shape("D", false, false);
 			matrix[r+2][c+1] = new Shape("D", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -284,14 +274,13 @@ public class Stretch
 		matrix[r][c+1] = new Shape("D", false, false);
 		matrix[r+1][c+1] = new Shape("D",false, false);
 		matrix[r+2][c+2] = new Shape("D", true, false);
-		printMatrix();
 		cursor = cursor + cols + cols + 2;
 		return true;
 	}
 
 	//Adds E piece - sigzag
 	//Left To Right
-	public boolean addE(int x)
+	public boolean addE(int x) throws Exception
 	{
 		x = x-1;
 		int	r = x/cols;
@@ -337,7 +326,6 @@ public class Stretch
 			matrix[r][c+1] = new Shape("E", false, false);
 			matrix[r+1][c+1] = new Shape("E", false, false);
 			matrix[r+1][c+2] = new Shape("E", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -350,7 +338,7 @@ public class Stretch
 		return true;
 	}
 	
-	public boolean addARL(int x)
+	public boolean addARL(int x) throws Exception
 	{
 		x = x-1;
 		//Check for bounds errors
@@ -370,9 +358,6 @@ public class Stretch
 		//Check for invalid pieces in the way
 		for (int i = c ; i > c-2; i--)
 		{
-			System.out.println(r);
-			System.out.println(cursor);
-
 			if (validMatrix[r][i] == false)
 			{
 				return false;
@@ -388,7 +373,6 @@ public class Stretch
 			matrix[x/cols][i] = new Shape("A", true, true);
 			matrix[x/cols][i-1] = new Shape("A", false, false);
 			matrix[x/cols][i-2] = new Shape("A", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 		matrix[x/cols][i] = new Shape("A", true, true);
@@ -399,7 +383,7 @@ public class Stretch
 		return true;
 	}
 
-	public boolean addBRL(int x)
+	public boolean addBRL(int x) throws Exception
 	{
 		x = x-1;
 		int r = x/cols;
@@ -417,7 +401,6 @@ public class Stretch
 			System.out.println(path.toString());
 			if (validMatrix[i][x%cols] == false)
 			{
-				System.out.println("SCSJFNSIDONF");
 				return false;
 			}
 		}
@@ -429,16 +412,13 @@ public class Stretch
 				matrix[x/cols][x%cols] = new Shape("B", true, true);
 				matrix[x/cols+1][x%cols] = new Shape("B", false, false);
 				matrix[x/cols+2][x%cols] = new Shape("B", true, false);
-				printMatrix();
 				System.exit(0);
 			}
-			System.out.println("DFBDUIFHIDUOFN");
 			path.add('B');
 			matrix[x/cols][x%cols] = new Shape("B", true, true);
 			matrix[x/cols+1][x%cols] = new Shape("B", false, false);
 			matrix[x/cols+2][x%cols] = new Shape("B", true, false);
 			cursor = (cursor + cols * 2) - 1;
-			printMatrix();
 			return true;
 		}
 
@@ -448,7 +428,6 @@ public class Stretch
 		{
 			if (validMatrix[k][x%cols] == false)
 			{
-				System.out.println("TESTer");
 				return false;
 			}
 		}
@@ -459,10 +438,8 @@ public class Stretch
 			matrix[x/cols][x%cols] = new Shape("B", true, true);
 			matrix[x/cols-1][x%cols] = new Shape("B", false, false);
 			matrix[x/cols-2][x%cols] = new Shape("B", true, false);
-			printMatrix();
 			System.exit(0);
 		}
-		System.out.println("IM HERE");
 		path.add('B');
 		matrix[x/cols][x%cols] = new Shape("B", true, true);
 		matrix[x/cols-1][x%cols] = new Shape("B", false, false);
@@ -471,7 +448,7 @@ public class Stretch
 		return true;
 	}
 	
-	public boolean addCRL(int x)
+	public boolean addCRL(int x) throws Exception
 	{
 		x = x-1;
 		int r = x/cols;
@@ -507,7 +484,6 @@ public class Stretch
 			matrix[x/cols][x%cols] = new Shape("C", true, true);
 			matrix[x/cols][x%cols-1] = new Shape("C", false, false);
 			matrix[x/cols-1][x%cols-1] = new Shape("C", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -519,7 +495,7 @@ public class Stretch
 		return true;
 	}
 	
-	public boolean addDRL(int x)
+	public boolean addDRL(int x) throws Exception
 	{
 		x = x - 1;
 		int r = x / cols;
@@ -577,7 +553,6 @@ public class Stretch
 			matrix[r-1][c] = new Shape("D",false, false);
 			matrix[r-2][c] = new Shape("D", false, false);
 			matrix[r-2][c-1] = new Shape("D", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -586,12 +561,11 @@ public class Stretch
 		matrix[r-1][c] = new Shape("D", false, false);
 		matrix[r-2][c] = new Shape("D",false, false);
 		matrix[r-2][c-1] = new Shape("D", true, false);
-		printMatrix();
 		cursor = cursor - cols - cols - 2;
 		return true;
 	}
 	
-	public boolean addERL(int x)
+	public boolean addERL(int x) throws Exception
 	{
 		x = x-1;
 		int	r = x/cols;
@@ -600,13 +574,11 @@ public class Stretch
 		//Exception Catching
 		if (c - 2 < 0)
 		{
-			System.out.println("C2");
 			return false;
 		}
 
 		if (r -1 < 0)
 		{
-			System.out.println("C!");
 			return false;
 		}
 
@@ -639,7 +611,6 @@ public class Stretch
 			matrix[r][c-1] = new Shape("E", false, false);
 			matrix[r-1][c-1] = new Shape("E", false, false);
 			matrix[r-1][c-2] = new Shape("E", true, false);
-			printMatrix();
 			System.exit(0);
 		}
 
@@ -685,7 +656,7 @@ public class Stretch
 	
 	public void throwException() throws Exception
 	{
-		throw new Exception();
+		System.exit(0);
 	}
 
 }

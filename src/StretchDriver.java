@@ -5,14 +5,16 @@ import java.util.StringTokenizer;
 
 public class StretchDriver {
 
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException, Exception
 	{
 		
 		Scanner scan = new Scanner(new File("src/inputs.txt"));
+		for (int k = 0; k < 5; k++)
+		{
 		StringTokenizer tokenizer = new StringTokenizer(scan.nextLine());
 		Stretch s = new Stretch(Integer.parseInt(tokenizer.nextToken()), Integer.parseInt(tokenizer.nextToken()));
 		int startingAt = Integer.parseInt(tokenizer.nextToken());
-		System.out.println(startingAt);
+	//	System.out.println(startingAt);
 		tokenizer.nextToken();
 		while (tokenizer.hasMoreTokens())
 		{
@@ -24,14 +26,8 @@ public class StretchDriver {
 		
 		if (startingAt % s.cols == 0)
 		{
-			System.out.println();
-			System.out.println();
-			System.out.println(s.addARL(startingAt));
-			s.printMatrix();
 			while (i > -1)
 			{
-				s.printMatrix();
-				s.printValidMatrix();
 				if (i % 5 == 0)
 				{
 					try {
@@ -45,8 +41,7 @@ public class StretchDriver {
 					try {
 						s.addBRL(s.getCursor());
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						break;
 					}
 				}
 				if (i % 5 == 2)
@@ -55,7 +50,7 @@ public class StretchDriver {
 						s.addCRL(s.getCursor());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						break;
 					}
 				}
 				if (i % 5 == 3)
@@ -64,7 +59,7 @@ public class StretchDriver {
 						s.addDRL(s.getCursor());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						break;
 					}
 				}
 				if (i % 5 == 4)
@@ -73,7 +68,7 @@ public class StretchDriver {
 						s.addERL(s.getCursor());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						break;
 					}
 				}
 				i++;	
@@ -83,18 +78,17 @@ public class StretchDriver {
 			s.addA(startingAt);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			break;
 		}
 		while (i > -1)
 		{
-			System.out.println(s.getCursor());
 			if (i % 5 == 0)
 			{
 				try {
 					s.addA(s.getCursor());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					break;
 				}
 			}
 			if (i % 5 == 1)
@@ -102,6 +96,7 @@ public class StretchDriver {
 				try {
 					s.addB(s.getCursor());
 				} catch (Exception e) {
+					break;
 					// TODO Auto-generated catch block
 					
 				}
@@ -146,4 +141,5 @@ public class StretchDriver {
 		*/
 	}
 
+}
 }

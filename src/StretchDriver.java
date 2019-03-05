@@ -12,38 +12,123 @@ public class StretchDriver {
 		StringTokenizer tokenizer = new StringTokenizer(scan.nextLine());
 		Stretch s = new Stretch(Integer.parseInt(tokenizer.nextToken()), Integer.parseInt(tokenizer.nextToken()));
 		int startingAt = Integer.parseInt(tokenizer.nextToken());
+		System.out.println(startingAt);
 		tokenizer.nextToken();
 		while (tokenizer.hasMoreTokens())
 		{
 			s.setInvalid(Integer.parseInt(tokenizer.nextToken()));
 		}
 		
-		s.addA(startingAt);
-		
 		//Loop through possible values
 		int i = 1;
+		
+		if (startingAt % s.cols == 0)
+		{
+			System.out.println();
+			System.out.println();
+			System.out.println(s.addARL(startingAt));
+			s.printMatrix();
+			while (i > -1)
+			{
+				s.printMatrix();
+				s.printValidMatrix();
+				if (i % 5 == 0)
+				{
+					try {
+						s.addARL(s.getCursor());
+					} catch (Exception e) {
+						break;
+					}
+				}
+				if (i % 5 == 1)
+				{
+					try {
+						s.addBRL(s.getCursor());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if (i % 5 == 2)
+				{
+					try {
+						s.addCRL(s.getCursor());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if (i % 5 == 3)
+				{
+					try {
+						s.addDRL(s.getCursor());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if (i % 5 == 4)
+				{
+					try {
+						s.addERL(s.getCursor());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				i++;	
+			}
+		}
+		try {
+			s.addA(startingAt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		while (i > -1)
 		{
 			System.out.println(s.getCursor());
 			if (i % 5 == 0)
 			{
-				s.addA(s.getCursor());
+				try {
+					s.addA(s.getCursor());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if (i % 5 == 1)
 			{
-				s.addB(s.getCursor());
+				try {
+					s.addB(s.getCursor());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					
+				}
 			}
 			if (i % 5 == 2)
 			{
-				s.addC(s.getCursor());
+				try {
+					s.addC(s.getCursor());
+				} catch (Exception e) {
+					break;
+				}
 			}
 			if (i % 5 == 3)
 			{
-				s.addD(s.getCursor());
+				try {
+					s.addD(s.getCursor());
+				} catch (Exception e) {
+					break;
+				}
 			}
 			if (i % 5 == 4)
 			{
-				s.addE(s.getCursor());
+				try {
+					s.addE(s.getCursor());
+				} catch (Exception e) {
+					break;
+				}
 			}
 			i++;
 		}

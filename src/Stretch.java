@@ -58,7 +58,7 @@ public class Stretch
 		int c = x%cols;
 
 		//Check for invalid pieces in the way
-		for (int i = c + 1; i < cols; i++)
+		for (int i = c ; i < c+2; i++)
 		{
 			System.out.println(1);
 			if (validMatrix[r][i] == false)
@@ -95,16 +95,18 @@ public class Stretch
 	public boolean addB(int x)
 	{
 		x = x-1;
+		int r = x/cols;
+		int c = x%cols;
 
 		//Check if it can go down
 
 		//Check bounds
-		if (x/cols + 3 < rows)
+		if (r + 2 < rows)
 		{
 		//Check for blocked pieces
 		for (int i = x/cols; i < x/cols+3; i++)
 		{
-
+			printMatrix();
 			if (validMatrix[i][x%cols] == false)
 			{
 				return false;
@@ -123,7 +125,6 @@ public class Stretch
 				System.exit(0);
 			}
 			path.add('B');
-			System.out.println(x);
 			printMatrix();
 			matrix[x/cols][x%cols] = new Shape("B", true, true);
 			matrix[x/cols+1][x%cols] = new Shape("B", false, false);
@@ -154,6 +155,7 @@ public class Stretch
 			System.exit(0);
 		}
 
+		path.add('B');
 		matrix[x/cols][x%cols] = new Shape("B", true, true);
 		matrix[x/cols-1][x%cols] = new Shape("B", false, false);
 		matrix[x/cols-2][x%cols] = new Shape("B", true, false);
@@ -185,6 +187,10 @@ public class Stretch
 			return false;
 		}
 		else if (validMatrix[r+1][c+1] == false)
+		{
+			return false;
+		}
+		if (matrix[r+1][c-1] != null)
 		{
 			return false;
 		}
@@ -234,8 +240,28 @@ public class Stretch
 		{
 			return false;
 		}
+		if (validMatrix[r+1][c+1] == false)
+		{
+			return false;
+		}
 
-		if (validMatrix[r][c+2] == false)
+		if (validMatrix[r+2][c+1] == false)
+		{
+			return false;
+		}
+		if (matrix[r][c] != null)
+		{
+			return false;
+		}
+		if (matrix[r][c+1] != null)
+		{
+			return false;
+		}
+		if (matrix[r+1][c+1] != null)
+		{
+			return false;
+		}
+		if (matrix[r+2][c+1] != null)
 		{
 			return false;
 		}
@@ -246,8 +272,9 @@ public class Stretch
 			path.add('D');
 			System.out.println(path.toString());
 			matrix[r][c] = new Shape("D", true, true);
-			matrix[r][c+1] = new Shape("D", false, false);
-			matrix[r][c+2] = new Shape("D", true, false);
+			matrix[r][c+1] = new Shape("D",false, false);
+			matrix[r+1][c+1] = new Shape("D", false, false);
+			matrix[r+2][c+1] = new Shape("D", true, false);
 			printMatrix();
 			System.exit(0);
 		}
@@ -255,7 +282,8 @@ public class Stretch
 		path.add('D');
 		matrix[r][c] = new Shape("D", true, true);
 		matrix[r][c+1] = new Shape("D", false, false);
-		matrix[r][c+2] = new Shape("D",true, false);
+		matrix[r+1][c+1] = new Shape("D",false, false);
+		matrix[r+2][c+2] = new Shape("D", true, false);
 		printMatrix();
 		cursor = cursor + cols + cols + 2;
 		return true;
@@ -321,7 +349,308 @@ public class Stretch
 		cursor = cursor + cols + 3;
 		return true;
 	}
+	
+	public boolean addARL(int x)
+	{
+		x = x-1;
+		//Check for bounds errors
+		if (x%cols - 2 < 0)
+		{
+			return false;
+		}
 
+		int r = x/cols;
+		int c = x%cols;
+		
+		if (c == 0)
+		{
+			c =cols;
+		}
+
+		//Check for invalid pieces in the way
+		for (int i = c ; i > c-2; i--)
+		{
+			System.out.println(r);
+			System.out.println(cursor);
+
+			if (validMatrix[r][i] == false)
+			{
+				return false;
+			}
+		}
+
+		//Cleared checking
+		int i = c;
+		if (i-2 == 0)
+		{
+			path.add('A');
+			System.out.println(path.toString());
+			matrix[x/cols][i] = new Shape("A", true, true);
+			matrix[x/cols][i-1] = new Shape("A", false, false);
+			matrix[x/cols][i-2] = new Shape("A", true, false);
+			printMatrix();
+			System.exit(0);
+		}
+		matrix[x/cols][i] = new Shape("A", true, true);
+		matrix[x/cols][i-1] = new Shape("A", false, false);
+		matrix[x/cols][i-2] = new Shape("A", true, false);
+		cursor = x - 2;
+		path.add('A');
+		return true;
+	}
+
+	public boolean addBRL(int x)
+	{
+		x = x-1;
+		int r = x/cols;
+		int c = x%cols;
+
+		//Check if it can go down
+
+		//Check bounds
+		if ((r + 2) < rows)
+		{
+		//Check for blocked pieces
+		for (int i = r; i < x/cols+3; i++)
+		{
+
+			System.out.println(path.toString());
+			if (validMatrix[i][x%cols] == false)
+			{
+				System.out.println("SCSJFNSIDONF");
+				return false;
+			}
+		}
+			//Passed checks
+			if (x%cols == 0)
+			{
+				path.add('B');
+				System.out.println(path.toString());
+				matrix[x/cols][x%cols] = new Shape("B", true, true);
+				matrix[x/cols+1][x%cols] = new Shape("B", false, false);
+				matrix[x/cols+2][x%cols] = new Shape("B", true, false);
+				printMatrix();
+				System.exit(0);
+			}
+			System.out.println("DFBDUIFHIDUOFN");
+			path.add('B');
+			matrix[x/cols][x%cols] = new Shape("B", true, true);
+			matrix[x/cols+1][x%cols] = new Shape("B", false, false);
+			matrix[x/cols+2][x%cols] = new Shape("B", true, false);
+			cursor = (cursor + cols * 2) - 1;
+			printMatrix();
+			return true;
+		}
+
+		//Has to go up
+		//Check if there is a piece in the way
+		for (int k = x/cols; k > x/cols-3; k--)
+		{
+			if (validMatrix[k][x%cols] == false)
+			{
+				System.out.println("TESTer");
+				return false;
+			}
+		}
+		if (x%cols == 0)
+		{
+			path.add('B');
+			System.out.println(path.toString());
+			matrix[x/cols][x%cols] = new Shape("B", true, true);
+			matrix[x/cols-1][x%cols] = new Shape("B", false, false);
+			matrix[x/cols-2][x%cols] = new Shape("B", true, false);
+			printMatrix();
+			System.exit(0);
+		}
+		System.out.println("IM HERE");
+		path.add('B');
+		matrix[x/cols][x%cols] = new Shape("B", true, true);
+		matrix[x/cols-1][x%cols] = new Shape("B", false, false);
+		matrix[x/cols-2][x%cols] = new Shape("B", true, false);
+		cursor = (cursor - cols * 2) - 1;
+		return true;
+	}
+	
+	public boolean addCRL(int x)
+	{
+		x = x-1;
+		int r = x/cols;
+		int c = x % cols;
+
+		//Check Bounds
+		if (c -1  < 0)
+		{
+			return false;
+		}
+
+		if (r-1 < 0)
+			return false;
+
+		if (validMatrix[r-1][c-1] == false)
+		{
+			return false;
+		}
+		else if (validMatrix[r][c-1] == false)
+		{
+			return false;
+		}
+		if (validMatrix[r][c] == false)
+		{
+			return false;
+		}
+
+		//Cleared checks
+		if (c -1 == 0)
+		{
+			path.add('C');
+			System.out.println(path.toString());
+			matrix[x/cols][x%cols] = new Shape("C", true, true);
+			matrix[x/cols][x%cols-1] = new Shape("C", false, false);
+			matrix[x/cols-1][x%cols-1] = new Shape("C", true, false);
+			printMatrix();
+			System.exit(0);
+		}
+
+		path.add('C');
+		matrix[x/cols][x%cols] = new Shape("C", true, true);
+		matrix[x/cols][x%cols-1] = new Shape("C", false, false);
+		matrix[x/cols-1][x%cols-1] = new Shape("C", true, false);
+		cursor = cursor - cols -2;
+		return true;
+	}
+	
+	public boolean addDRL(int x)
+	{
+		x = x - 1;
+		int r = x / cols;
+		int c = x % cols;
+
+		if (c - 1 < 0)
+		{
+			return false;
+		}
+		if (r - 2 < 0)
+		{
+			return false;
+		}
+
+		if (validMatrix[r][c] == false)
+		{
+			return false;
+		}
+		if (validMatrix[r-1][c] == false)
+		{
+			return false;
+		}
+		if (validMatrix[r-2][c] == false)
+		{
+			return false;
+		}
+
+		if (validMatrix[r-2][c-1] == false)
+		{
+			return false;
+		}
+		if (matrix[r][c] != null)
+		{
+			return false;
+		}
+		if (matrix[r-2][c] != null)
+		{
+			return false;
+		}
+		if (matrix[r-1][c-1] != null)
+		{
+			return false;
+		}
+		if (matrix[r-2][c-1] != null)
+		{
+			return false;
+		}
+
+		//Passed error catching
+		if (c - 1 == 0)
+		{
+			path.add('D');
+			System.out.println(path.toString());
+			matrix[r][c] = new Shape("D", true, true);
+			matrix[r-1][c] = new Shape("D",false, false);
+			matrix[r-2][c] = new Shape("D", false, false);
+			matrix[r-2][c-1] = new Shape("D", true, false);
+			printMatrix();
+			System.exit(0);
+		}
+
+		path.add('D');
+		matrix[r][c] = new Shape("D", true, true);
+		matrix[r-1][c] = new Shape("D", false, false);
+		matrix[r-2][c] = new Shape("D",false, false);
+		matrix[r-2][c-1] = new Shape("D", true, false);
+		printMatrix();
+		cursor = cursor - cols - cols - 2;
+		return true;
+	}
+	
+	public boolean addERL(int x)
+	{
+		x = x-1;
+		int	r = x/cols;
+		int c = x % cols;
+
+		//Exception Catching
+		if (c - 2 < 0)
+		{
+			System.out.println("C2");
+			return false;
+		}
+
+		if (r -1 < 0)
+		{
+			System.out.println("C!");
+			return false;
+		}
+
+		if (validMatrix[r][c] == false)
+		{
+			return false;
+		}
+
+		if (validMatrix[r][c-1] == false)
+		{
+			return false;
+		}
+
+		if (validMatrix[r-1][c-1] == false)
+		{
+			return false;
+		}
+
+		if (validMatrix[r-1][c-2] == false)
+		{
+			return false;
+		}
+
+		//Passed exception catching
+		if (c - 2 == 0)
+		{
+			path.add('E');
+			System.out.println(path.toString());
+			matrix[r][c] = new Shape("E", true, true);
+			matrix[r][c-1] = new Shape("E", false, false);
+			matrix[r-1][c-1] = new Shape("E", false, false);
+			matrix[r-1][c-2] = new Shape("E", true, false);
+			printMatrix();
+			System.exit(0);
+		}
+
+		path.add('E');
+		matrix[r][c] = new Shape("E", true, true);
+		matrix[r][c-1] = new Shape("E", false, false);
+		matrix[r-1][c-1] = new Shape("E", false, false);
+		matrix[r-1][c-2] = new Shape("E", true, false);
+		cursor = cursor - cols -3 ;
+		return true;
+	}
 
 	public void printValidMatrix()
 	{
@@ -352,6 +681,11 @@ public class Stretch
 	public int getCursor()
 	{
 		return cursor;
+	}
+	
+	public void throwException() throws Exception
+	{
+		throw new Exception();
 	}
 
 }
